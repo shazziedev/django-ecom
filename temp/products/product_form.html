@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+	{% block title %}
+		Product | add
+	{% endblock %}
+
+	{% load crispy_forms_tags %}
+	{% block body %}
+	<div class="container">
+	  <div class="col-md-6 mx-auto ">
+		<p class="h2 text-capitalize py-3" >
+			<b>add a new product</b>
+		</p>
+		<form  method="post" action="{% url 'products:products-form' %}" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{form|crispy}}
+
+			<p class="h3 py-3">add more images</p>
+			{{forms|crispy}}
+
+			<button class="btn btn-info col-12" type="submit">Post</button>
+		</form>
+	   </div>
+	</div>
+	{% endblock %}

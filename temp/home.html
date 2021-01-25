@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+	{% block title %}
+		Products | List
+	{% endblock %}
+	{% block body %}
+	
+	<style type="text/css">
+		#top{
+			height: 500px;
+            background-color:black;
+            background-image: url('{% static 'top.jpg' %}');
+            background-size: 100%  auto ;
+            background-repeat:no-repeat;
+            background-position: center; 
+            
+		}
+		.cat-img{
+			width: 100%;
+			padding: 0px;
+			margin:0px;
+		}
+		.card-text{
+			font-size: 10pt;
+
+		}
+		.cat-r-img{
+            /*background-color:black;*/
+			/*{% for t in cat  %}
+			{% endfor %}*/
+			 
+		}
+	</style>
+	<div class="">
+		<div id="top"> 
+		</div>
+		<div class="row px-4 mx-0">
+		<div class="py-2 display-6">Category</div>
+		{% for t in cat  %}
+			<div class="container card g-2 mx-2" style="max-width: 400px;">
+			  <div class="row g-0">
+			    <div class="col-md-4 px-0 mx-0 bg-secondary" style="
+			    background-image: url('{{ t.caover.url }}'); 
+			    background-size: 180px auto   ;
+			    background-repeat:no-repeat;
+			    background-position: center;
+			    height:177px;
+
+			    ">
+			      
+			    </div>
+			    <div class="col-md-8 ">
+			      <div class="card-body">
+			        <h5 class="card-title">{{t.title}}</h5>
+			        <p class="card-text">{{t.snippet}}</p>
+			        <p class="card-text"><small class="text-muted">updated: {{t.timestamp|date}}</small></p>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+	 	{% endfor %}
+
+	 	<div class="border-bottom pt-4">
+	 		<div class="display-6 float-left">Products</div>
+			{% if user.is_authenticated %}
+	 		<a class="btn btn-info rounded-pill float-right" href="{% url 'products:products-form' %}"><i class="fas fa-plus"></i> sell something</a>
+	 		{% endif %}
+	 	</div>
+	    	
+
+	    	<div class="row row-cols-1 row-cols-md-3 g-4">
+		{% for i in object_list %}
+			  <div class="col">
+			    <div class="card h-100">
+			     	<a href="{{i.get_absolute_url}}"> <img src="{{i.thumb.url}}" class="card-img-top" alt="..."></a>
+			      <div class="card-body">
+			      	<a href="{{i.get_absolute_url}}">
+				        <h5 class="card-title">{{i.name}}</h5>
+				        <p class="card-text">{{i.info| linebreaks}}</p>
+			    	</a>
+			      </div>
+			    </div>
+			  </div>
+		{% empty %}
+	    	<li>No Products yet.</li>
+		{% endfor %}
+  			</div>
+
+	</div>
+</div>
+	{% endblock %}
+
+	<!-- top img
+	<span>Photo by <a href="https://unsplash.com/@teenagerinro?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Ady TeenagerInRO</a> on <a href="https://unsplash.com/s/photos/gadgets?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span> 
+		
+	womens shoes category
+	<span>Photo by <a href="https://unsplash.com/@mohammadmetri?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Mohammad Metri</a> on <a href="https://unsplash.com/s/photos/wemens-shoes?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
+
+	computer category
+	<span>Photo by <a href="https://unsplash.com/@nicklbaert?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Niclas Illg</a> on <a href="https://unsplash.com/s/photos/computers?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
+
+	chair category
+	<span>Photo by <a href="https://unsplash.com/@itssammoqadam?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Sam Moqadam</a> on <a href="https://unsplash.com/s/photos/furniture?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
+
+	 mens shoes categore 
+	<span>Photo by <a href="https://unsplash.com/@introspectivedsgn?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Erik Mclean</a> on <a href="https://unsplash.com/s/photos/shoes?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span> -->

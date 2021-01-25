@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+	{% block title %}
+		Wishlist
+	{% endblock %}
+
+	{% block body %}
+		
+	<style type="text/css">
+		#products-top{
+			height: 100px;
+		}
+		#a{
+			text-decoration: none;
+			color: #343a40;
+		}
+		#a:hover {
+			color:dodgerblue;
+		}
+		
+	</style>
+
+	<div class="container-fluid my-5"> 
+		<div class=" border-bottom h1 my-3 py-2">WishList | <small><small>all saved items</small></small> </div>
+		<div class="list-unstyled row">
+			
+			<div class="col-md-7 col-12 mx-auto">
+			
+			{% for i in wishlist %}
+			<div class="row my-2 ">
+				<div class="col-4 col-md-2">
+					<a id="a" href="{{i.item.thumb.url}}"><img src="{{i.thumb.url}}" class="img-fluid " ></a>
+					
+				</div>
+				<div class="col ">
+					<p class="h4"><a id="a" href="{{i.item.get_absolute_url}}">{{i.name}}</a></p>
+					<div>{{i.info}}</div>
+					<div>posted:{{i.timestamp}}</div>
+				</div>
+				<div class="col-3">
+					<div>was: <del class="text-danger">${{i.get_price}}</del> </div>
+					<div class="h4">price: ${{i.current_price}} </div>
+					<div>save: ${{i.discount}}</div>
+					<a href="{{i.hundle_wishlist}}" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i> Remove</a>
+				</div>
+			</div>
+			{% empty %}
+		    	<div class="p-3 text-center">You have saved no items yet!</div>
+
+			{% endfor %}
+			<div class="col-11 border-top text-end">
+			 
+			   <li class="list-unstyled text-capitalize my-2">
+			   		
+			</div>
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+

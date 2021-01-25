@@ -1,0 +1,29 @@
+{% with url_name=request.resolver_match.url_name %}
+
+<nav class="navbar navbar-expand-lg navbar-dark col-md-8 mx-auto rounded bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
+  <a class="navbar-brand " href="{% url 'acc:index' %}">Profile</a>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item ">
+        <a class="nav-link {% if url_name == 'index' %} active {% endif %}" href="{% url 'acc:index' %}">{{user}} {% if url_name == 'index' %}<span class="sr-only">(current)</span>{% endif %}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if url_name == 'edit' %} active {% endif %}"  href="{% url 'acc:edit' %}">Edit {% if url_name == 'index' %}<span class="sr-only">(current)</span>{% endif %}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if url_name == 'password_change' %} active {% endif %}" href="{% url 'password_change' %}">Change Password {% if url_name == 'index' %}<span class="sr-only">(current)</span>{% endif %}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="{% url 'logout' %}">Logout</a>
+      </li>
+    </ul>
+    <a class="px-0 mr-3 text-light nav-link" href="{% url 'home' %}">View Site</a>
+    <a class="btn btn-danger nav-link" href="{% url 'acc:deactivate' %}">Deactivate Account</a>
+  </div>
+</nav>
+{% endwith %}

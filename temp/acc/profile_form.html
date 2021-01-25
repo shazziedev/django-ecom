@@ -1,0 +1,21 @@
+{% extends 'acc/master.html' %}
+
+{% block title%}
+create account
+{% endblock %}
+
+{% block body %}
+{%load crispy_forms_tags %}
+	<div class="col-md-8 mx-auto py-5"> 
+		<h1 class="  mt-5 py-2 border-bottom">Almost Done! complete your profile</h1>
+		<div class="col px-0">
+			<form class="create-form" action="{% url 'acc:update' %}" method="post" enctype="multipart/form-data">
+			{% csrf_token %}	
+			{{ form | crispy }}
+			<input type="submit" class="btn btn-info col-12 btn-lg" value="Create">
+			
+			</form>		
+		</div>
+	</div>
+{% endblock %}
+

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+	{% block title %}
+		Cart | List
+	{% endblock %}
+
+	{% block body %}
+		
+	<style type="text/css">
+		#products-top{
+			height: 100px;
+		}
+		#a{
+			text-decoration: none;
+			color: #343a40;
+		}
+		#a:hover {
+			color:dodgerblue;
+		}
+		
+	</style>
+
+<div class="container-fluid my-5"> 
+	<div class=" border-bottom h1 my-3 py-2">My Cart</div>
+	<div class="list-unstyled row">
+		
+		<div class="col-md-7 col-12 mx-auto">
+		
+		{% for i in object_list %}
+		<div class="row my-2 ">
+			<div class="col-4 col-md-2">
+				<a id="a" href="{{i.item.thumb.url}}"><img src="{{i.item.thumb.url}}" class="img-fluid " ></a>
+				
+			</div>
+			<div class="col ">
+				<p class="h5"><a id="a" href="{{i.item.get_absolute_url}}">{{i.item}}</a></p>
+				
+				<div>status: {{i.orderitems}}</div>
+				<div >quantity: <span class="text-danger">{{i.quantity}}</span></div>
+				<div>added:{{i.created|date}}</div>
+			</div>
+			<div class="col-3">
+				<div>${{i.item.current_price}}/unit </div>
+				<div class="my-1"><kbd>${{i.get_cost}}</kbd></div>
+				<a href="{{i.remove_from_cart}}" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></a>
+			</div>
+		</div>
+		{% empty %}
+	    	<div class="p-3 ">You have no items added to your Cart yet.</div>
+
+		{% endfor %}
+		<div class="col-11 border-top text-end">
+		   <li class="list-unstyled text-capitalize mt-4">total cost: <kbd>${{total}}</kbd></li>
+		   <li class="list-unstyled text-capitalize my-2">
+		   		{% if user.is_authenticated %}
+		   		<a href="" class="text-capitalize btn btn-info rounded-pill {% if object_list %} {% else %}disabled {% endif %}"><i class="fas fa-shopping-bag"></i> Buy</a>
+		   		{% endif %}
+		   </li>
+		</div>
+		</div>
+	</div>
+</div>
+	{% endblock %}
+
+
+<!-- 
+{% if in_cart %}
+ 		
+         <span class="storefront_add_to_cart">
+             <a class="btn btn-success" href="{% url 'cart:add_to_cart' slug=photo.slug %}"><i class="fas fa-plus"></i> Add to Cart</a>
+         </span>
+         <br>
+         {% else %}
+         <span class="storefront_add_to_cart">
+             <a class="btn btn-danger" href="{% url 'cart:remove_from_cart' slug=photo.slug %}"><i class="far fa-trash-alt"></i> Remove From Cart</a>
+         </span>
+         {% endif %}
+          -->

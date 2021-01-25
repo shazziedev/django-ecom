@@ -1,0 +1,110 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+	signup
+{% endblock %}
+
+
+
+{% block body %}
+{% load crispy_forms_tags %}
+
+	<div class="col">
+		<div class=" col-md-6 mx-auto  ">		
+			<h2 class=" pt-5 pb-2 px-0 mx-0 border-bottom">Register</h2>
+			<form class="py-4 signupform" action="/accounts/signup/" method="post">
+				{% if form.errors %}
+				    {% for field in form %}
+				        {% for error in field.errors %}
+				            <div class="alert alert-danger">
+				                <strong>{{ error|escape }}</strong>
+				            </div>
+				        {% endfor %}
+				    {% endfor %}
+				    {% for error in form.non_field_errors %}
+				        <div class="alert alert-danger">
+				            <strong>{{ error|escape }}</strong>
+				        </div>
+				    {% endfor %}
+				{% endif %}
+	       
+	        
+	        {% csrf_token %}
+	        <div id="div_id_username" class="form-group"> 
+	        	<div class="form-floating mb-3">
+				  <input type="text" name="username"  required=""  maxlength="150" autofocus="" class="form-control textinput textInput form-control" id="id_username" placeholder="kelvin	">
+				  <label for="id_username" class=" requiredField">Username</label>
+		         	<small id="hint_id_username" class="form-text text-muted">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small> 
+				</div>
+			</div> 
+			<div class="row">
+			     <div id="div_id_first_name" class="col-md-6 form-group"> 
+			     	<div class="form-floating mb-3">
+					  	<input type="text" name="first_name"  required=""  maxlength="30" autofocus="" class="form-control textinput textInput form-control" id="id_first_name" placeholder="kelvin	">
+					  	<label for="id_first_name" class=" requiredField">First name</label>
+	            		<small id="hint_id_first_name" class="form-text text-muted">Optional</small> 
+					</div>
+				</div>
+
+	            <div id="div_id_last_name" class=" col-md-6 form-group"> 
+	            	<div class="form-floating mb-3">
+	            		<input type="text" name="last_name"  required=""  maxlength="30" autofocus="" class="form-control textinput textInput form-control" id="id_last_name" placeholder="bandae	">
+					  	<label for="id_last_name" class=" requiredField">Last name</label>
+	            		<small id="hint_id_last_name" class="form-text text-muted">Optional</small>
+	            	</div>	
+	            </div> 
+            </div> 
+            <div id="div_id_email" class="form-group"> 
+            	<div class="form-floating mb-3">
+				  <input type="email" class="form-control emailinput form-control" required="" id="id_email" placeholder="name@example.com"  name="email" maxlength="254">
+				  <label  for="id_email" class=" requiredField">Email address</label>
+            	  <small id="hint_id_email" class="form-text text-muted">Enter a valid email address</small> 
+				</div>
+        	</div> 
+        	<div id="div_id_password1" class="form-group"> 
+        		<div class="form-floating">
+				    <input type="password" name="password1" autocomplete="new-password" class="textinput textInput form-control form-control" id="id_password1" placeholder="Password">
+				    <label for="id_password1" class=" requiredField">Password</label>
+            		<small id="hint_id_password1" class="form-text text-muted">
+            			<ul class="">
+            				<li>Your password can’t be too similar to your other personal information.</li>
+            				<li>Your password must contain at least 8 characters.</li>
+            				<li>Your password can’t be a commonly used password.</li>
+            				<li>Your password can’t be entirely numeric.</li>
+            			</ul>
+            		</small> 
+				</div> 
+            	
+            	
+            </div> 
+            <div id="div_id_password2" class="form-group"> 
+            	<div class="form-floating">
+				  <input type="password" name="password2" autocomplete="new-password " class="form-control textinput textInput form-control" id="id_password2" placeholder="Password">
+				  <label for="id_password2" class=" requiredField">Password confirmation</label>
+                  <small id="hint_id_password2" class="form-text text-muted">Enter the same password as before, for verification.</small> 
+				</div>
+            </div>
+          
+	        <button class="btn btn-lg btn-info col-2" type="submit">Register</button>
+	       	<div class="col px-0 py-4" >
+	       		<p>already have an account</p>
+	       		<a class="btn btn-secondary col-2" href="/auth/login/">login</a>
+	       	</div>
+	    </form>
+
+
+			<!-- <form class="py-4 signupform" action="/accounts/signup/" method="post">
+	        {{ form | crispy }}
+	       
+	        <button class="btn btn-lg btn-info col-12" type="submit">Register</button>
+	       	<div class="col px-0 py-4" style="text-align: center; ">
+	       		<p>already have an account</p>
+	       		<a class="btn btn-secondary col-md-6" href="{% url 'login' %}">login</a>
+	       	</div>
+	    </form> -->
+
+		</div>
+	</div>
+{% endblock %}
+

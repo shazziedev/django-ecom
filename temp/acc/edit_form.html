@@ -1,0 +1,22 @@
+{% extends 'acc/master.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+	<div class="my-4 mx-md-5 px-3"> 
+        
+        {% include 'acc/acc_nav.html' %}
+		
+		<div class="col-md-8 mx-auto py-5">
+			<form class="create-form" id="identifier" action="{% url 'acc:edit' %}" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form | crispy }}
+			{{ custom_form | crispy }}
+			
+			<input type="submit" class="btn btn-info col-12 btn-lg" value="Update">
+			
+			</form>		
+		</div>
+	</div>
+
+{% endblock %}

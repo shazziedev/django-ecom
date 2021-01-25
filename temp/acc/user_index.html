@@ -1,0 +1,91 @@
+{% extends 'acc/master.html' %}
+
+{% block body %}
+
+<div class="my-4 mx-md-5 px-3">
+
+    {% include 'acc/acc_nav.html' %}
+
+    {% if obj %}
+    {% for obj in obj %}
+    
+    <div class="col d-flex my-5 col-md-8 mx-auto">
+        <a href="{{obj.avatar.url}}">
+            <div class=" m-0 p-0" style="
+                height: 90px;
+                width: 90px;
+                border-radius: 50%;
+                background-color:grey;
+                background-image: url('{{obj.avatar.url}}');
+                background-size: 90px  auto ;
+                background-repeat:no-repeat;
+                background-position: right center ; 
+                ">
+            </div>
+            </a>
+        <div class="mx-2">
+            <div class="h1 col text-capitalize" id="identifier">{{obj}}</div>
+            <div class="col text-capitalize" id="identifier">joined: {{ obj.user.date_joined }}</div>
+        </div>
+	</div>
+        
+        <div class="col-md-8 mx-auto bg-light rounded border">
+            <div class="col d-flex my-5">
+                <div class="col" id="identifier">Last Name</div>
+                <div class="" id="id_val" >{{obj.user.last_name}}</div>
+            </div>
+            <div class="col d-flex my-5">
+                <div class="col" id="identifier">First Name</div>
+                <div class="" id="id_val" >{{obj.user.first_name}}</div>
+            </div>
+            <div class="col d-flex my-5">
+                <div class="col" id="identifier">City</div>
+                <div class="" id="id_val" >{{obj.city}}</div>
+            </div>
+            <div class="col my-5">
+                <div class="col" id="identifier">About</div>
+                <div class="col" id="id_val" >{{obj.bio | linebreaks }}</div>
+            </div>
+            <div class="col d-flex my-5">
+                <div class="col" id="identifier">Email</div>
+                <div class="" id="id_val" >{{obj.user.email}}</div>
+            </div>
+            <div class="col d-flex my-5">
+                <div class="col" id="identifier">Cell</div>
+                <div class="" id="id_val" >{{obj.cell}}</div>
+            </div>
+            <div class="col d-flex my-5">
+                <div class="col" id="identifier">Date Of Birth</div>
+                <div class="" id="id_val" >{{obj.dob}}</div>
+            </div>
+            <div class="col d-flex my-5">
+                <div class="col" id="identifier">Facebook</div>
+                <div class="" id="id_val" >{{obj.facebook}}</div>
+            </div>
+            <div class="col d-flex my-5">
+                <div class="col" id="identifier">Instagram</div>
+                <div class="" id="id_val" >{{obj.instagram}}</div>
+            </div>
+        </div>
+	{% endfor %}
+    {% else %}
+        <div class="col my-5 h-50 col-md-8 mx-auto">
+            <div class="h3   text-capitalize">complete your prifile</div>
+            <a class="btn btn-info" href="{% url 'acc:edit' %}">Edit</a>
+        </div>
+        
+	{% endif %}
+</div>
+<style>
+
+
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+    #identifier,#id_val{
+        font-family: 'Quicksand', sans-serif;
+    
+    }
+    #identifier{
+        font-weight:1000;
+    }
+</style>
+{% endblock %}

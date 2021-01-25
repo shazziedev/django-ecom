@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+	 {% block title %}
+		Products | Details
+	{% endblock %}
+	{% load ratings %}
+
+	{% block body %}
+	<div class="container">
+		
+		<div class="row">
+			<div class="float-start h3">{{ object.name }}</h3>
+			<a class="float-end btn btn-info rounded-pill mb-2 " href="{% url 'products:products-form' %}"><i class="fas fa-plus"></i> add a product</a>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<a href="{{object.thumb.url}}">
+					<img src="{{object.thumb.url}}" class="img-fluid">
+				</a>
+				
+			</div>
+			<div class="col-md-6">
+				
+	 	
+		{% if object.product.all %}
+		{% for i in object.product.all %}
+			<ul class="list-unstyled d-flex my-2">
+				
+				{% if i.img1 %}
+				<li class="">
+					<img src="{{i.img1.url}}" class="moreImg">
+				</li>
+				{% endif %}
+				{% if i.img2 %}
+				<li class="">
+					<img src="{{i.img2.url}}" class="moreImg">
+				</li class="">
+				{% endif %}
+				{% if i.img3 %}
+				<li class="">
+					<img src="{{i.img3.url}}" class="moreImg">
+				</li>
+				{% endif %}
+		</ul>
+		{% endfor %}
+		{% endif %}
+		<div class=" mb-2 p-2">	
+			<div class="row m-0 pb-2 border-bottom mb-2 " >
+				<div class=" m-0 p-0" style="
+				height: 60px;
+				width: 60px;
+				border-radius: 50%;
+            	background-color:grey;
+            	background-image: url('{{object.author.avatar.url}}');
+            	background-size: 90px  auto ;
+            	background-repeat:no-repeat;
+            	background-position: center right; 
+				">
+			</div>
+			<div class="col display-6 text-capitalize m-0 py-2">
+			{{object.author}}
+			</div>
+			</div>
+			<div>{{ object.info| linebreaks }}</div>
+			<div>Category: {{ object.category }}</div>
+			<div>Location: {{ object.location }}</div>
+			{% if object.get_price is not None %}
+			<div>was: $<del>{{ object.get_price}} </del></div>
+			{% endif %}
+			{% if object.current_price == 'free' %}
+			<div>now: {{ object.current_price }}</div>
+			{% elif object.current_price is not None %}
+			<div>price: ${{ object.current_price }}</div>
+			{% endif %}
+			<div>posted: {{ object.timestamp|date }}</div>
+			<div>{% ratings object %}</div>
+		<a href="" class="btn btn-info"><i class="fas fa-shopping-bag"></i> Buy Now</a>
+		<a href="{{object.add_to_cart}}" class="btn btn-dark rounded-pills my-2 "><i class="fas fa-shopping-cart"></i> add to cart</a>
+		{% if is_favourite %}
+			<a class="btn btn-outline-dark" href="{{object.hundle_wishlist}}"><i class="fas fa-bookmark"></i> Remove from Wishlist</a>
+		{% else %}
+			<a class="btn btn-outline-dark" href="{{object.hundle_wishlist}}"><i class="far fa-bookmark"></i> Save to Wishlist</a>
+		{% endif %}
+		</div>
+			</div>
+		
+		</div>
+	</div>
+	{% endblock %}

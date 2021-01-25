@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+	{% block title %}
+		Products | List
+	{% endblock %}
+	{% block body %}
+	
+	<style type="text/css">
+		#products-top{
+			height: 90px;
+		}
+		#a{
+			text-decoration: none;
+			color: #343a40;
+		}
+		#a:hover {
+			color:dodgerblue;
+		}
+		
+	</style>
+	{% load ratings %}
+
+ 	<div class="my-5 col-12">
+ 		<div class="display-6 float-left">Products</div>
+		{% if user.is_authenticated %}
+ 		<a class="btn btn-info rounded-pill float-right" href="{% url 'products:products-form' %}"><i class="fas fa-plus"></i> sell something</a>
+ 		{% endif %}
+ 	</div>
+
+	<div class="border-top">
+
+		<div class="mx-3 my-2 p-0 d-flex ">
+			<div class=" py-0">
+			<nav aria-label="Page navigation example m-5">
+			  <ul class="pagination">
+				{% if page_obj.has_previous %}
+
+			    <li class="page-item">
+			      <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+	            {% endif %}
+
+	             {% for i in page_obj.paginator.page_range %}
+	             {% if forloop.counter < 7 %}
+	             {% if page_obj.number == i %}
+				<li class="page-item active"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+      			{% else %}
+			    <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+			    {% endif %}
+			     {% endif %}
+			    {% endfor %}
+			     {% if page_obj.has_next %}
+			    
+			    <li class="page-item">
+			      <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+	              {% endif %}
+			  </ul>
+			</nav> 
+			</div>
+			<span class="m-2 col-md-6 mx-auto ">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.	</span>
+	 	</div>
+	<div class="row px-0 mx-0">
+		<div class="col-md-8 col-12">
+
+	    	<div class="">
+			{% for i in object_list %}
+			<div class="card mb-2">
+			  <div class="card-body row">
+				<div class="col-md-3">
+					<a id="a" class="text-dark a" href="{{i.get_absolute_url}}">
+					<img src="{{i.thumb.url}}" class="img-thumbnail  mr-4 rounded " alt="image of {{i.name}} '{{i.info}}'">
+					</a>
+				</div>
+			    <div class="col-md">
+			    	<a id="a" class=" a" href="{{i.get_absolute_url}}">
+				    <div class="h3">{{i.name}}</div>
+				    {{i.ratings}}
+				    <p class="">{{i.info}}</p>
+				    </a>
+				  	<p class="text-muted">posted: {{i.timestamp|date}}</p>
+			  	</div>	
+			  	<div class="col-md-3">
+			  		<p class="display-6">${{i.current_price}}</p>
+			  		<p class="text-muted">was <code><del>${{i.get_price}}</del></code></p>
+			  		<a href="{{i.add_to_cart}}" class="btn btn-outline-dark rounded-pills ">
+			  			<i class="fas fa-shopping-cart"></i> add to cart</a>
+			  		<p class="my-2">
+			  		<a href="{{i.get_absolute_url}}" class="btn btn-dark rounded-pills ">
+			  			See Details
+			  		</a>
+			  		{% if is_favourite %}
+						<a class="btn btn-danger my-2" href="{{i.hundle_wishlist}}"><i class="fas fa-bookmark"></i> Remove from Wishlist</a>
+					{% else %}
+						<a class="btn btn-warning my-2 " href="{{i.hundle_wishlist}}"><i class="far fa-bookmark"></i> Save to Wishlist</a>
+					{% endif %}
+			  		</p>
+
+			  	</div>
+			  </div>
+
+			</div>
+			{% empty %}
+			<div class="col-5 mx-auto my-4 text-danger p-2 rounded list-unstyled text-center" style="background-color: pink;">
+				<li>No products posted yet!</li>
+				<a class="btn btn-info rounded-pill my-4" href="{% url 'products:products-form' %}"><i class="fas fa-plus"></i> sell something</a>
+			</div>
+			{% endfor %}
+  			</div>
+
+		</div>
+		<div class="col-md-4 col-12 mx-auto">
+			
+			<div class="list-group">
+			  <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+			    Category
+			  </a>
+			{% for t in cat  %}
+			  <a href="#" class="list-group-item list-group-item-action">{{t.title}}</a>
+		 	{% endfor %}
+			</div>
+		
+		</div>
+	</div>
+</div>
+
+	{% endblock %}
+
+	<!-- top img
+	<span>Photo by <a href="https://unsplash.com/@teenagerinro?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Ady TeenagerInRO</a> on <a href="https://unsplash.com/s/photos/gadgets?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span> 
+		
+	womens shoes category
+	<span>Photo by <a href="https://unsplash.com/@mohammadmetri?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Mohammad Metri</a> on <a href="https://unsplash.com/s/photos/wemens-shoes?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
+
+	computer category
+	<span>Photo by <a href="https://unsplash.com/@nicklbaert?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Niclas Illg</a> on <a href="https://unsplash.com/s/photos/computers?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
+
+	chair category
+	<span>Photo by <a href="https://unsplash.com/@itssammoqadam?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Sam Moqadam</a> on <a href="https://unsplash.com/s/photos/furniture?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
+
+	 mens shoes categore 
+	<span>Photo by <a href="https://unsplash.com/@introspectivedsgn?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Erik Mclean</a> on <a href="https://unsplash.com/s/photos/shoes?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span> -->
+
