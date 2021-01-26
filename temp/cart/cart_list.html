@@ -53,7 +53,7 @@
 		   <li class="list-unstyled text-capitalize mt-4">total cost: <kbd>${{total}}</kbd></li>
 		   <li class="list-unstyled text-capitalize my-2">
 		   		{% if user.is_authenticated %}
-		   		<a href="" class="text-capitalize btn btn-info rounded-pill {% if object_list %} {% else %}disabled {% endif %}"><i class="fas fa-shopping-bag"></i> Buy</a>
+		   		<a href="{% url 'payment:process'  %}" class="text-capitalize btn btn-info rounded-pill {% if object_list %} {% else %}disabled {% endif %}"><i class="fas fa-shopping-bag"></i> Buy</a>
 		   		{% endif %}
 		   </li>
 		</div>
@@ -62,17 +62,3 @@
 </div>
 	{% endblock %}
 
-
-<!-- 
-{% if in_cart %}
- 		
-         <span class="storefront_add_to_cart">
-             <a class="btn btn-success" href="{% url 'cart:add_to_cart' slug=photo.slug %}"><i class="fas fa-plus"></i> Add to Cart</a>
-         </span>
-         <br>
-         {% else %}
-         <span class="storefront_add_to_cart">
-             <a class="btn btn-danger" href="{% url 'cart:remove_from_cart' slug=photo.slug %}"><i class="far fa-trash-alt"></i> Remove From Cart</a>
-         </span>
-         {% endif %}
-          -->

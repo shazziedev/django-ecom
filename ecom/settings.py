@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',   #for APIs
     'star_ratings',     #For 5 start ratting
     'social_django',    #for social login
+    'paypal.standard.ipn', #for_paypal
 ]   
 
 AUTHENTICATION_BACKENDS = {
@@ -166,7 +167,9 @@ REST_FRAMEWORK = {
     ]
 }
 
-
+#paypal setting
+PAYPAL_RECEIVER_EMAIL = PAYPAL_RECEIVER_EMAIL
+PAYPAL_TEST = PAYPAL_TEST
 
 # if DEVELOPMENT_MODE is True:
 #     DATABASES = {
