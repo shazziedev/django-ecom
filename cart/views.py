@@ -9,7 +9,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.auth.decorators import login_required
 from cart.models import *
 from products.models import *
-
+from .forms import *
 
 
 class CartView(ListView):
@@ -96,4 +96,42 @@ class removeCartView(DeleteView):
             messages.info(request, "You do not have an active order")
             return redirect("cart:cart-list")
         return redirect("cart:cart-list")
+
+class CheckOutView(CreateView):
+    model = Order
+    form_class = CheckOutForm
+    template_name = 'cart/checkout_form.html'
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)  # Get the form as usual
+        user = self.request.user.user
+        form.fields['orderitems'].queryset = Cart.objects.filter(buyer=user)
+        return form
+
+    # def get(self,request,*args,**kwargs):
+    #     form = self.form_class(instance=self.request.user.user)
+    #     user = self.request.user.user
+    #     form.fields['orderitems'].queryset = Cart.objects.filter(buyer=user)
+
+        
+    #     context = {
+    #         "form": form, 
+    #     }
+    #     return render(request,self.template_name, context)
+
+    def post(self,request,*args,**kwargs):
+        form = self.form_class(request.POST)
+        user = self.request.user.user
+        form.fields['orderitems'].queryset = Cart.objects.filter(buyer=user)
+
+        if form.is_valid():
+            cart = Cart.objects.filter(buyer= self.request.user.user)
+            instance = form.save(commit=False)
+            instance.ordered = True
+            instance.client_id = request.user.user.id
+            instance.save()
+            form.save_m2m()
+            request.session['order_id'] = instance.pk
+            return redirect("payment:process")
+        return render(request,self.template_name,{'form':form})#,'forms' : forms})
 

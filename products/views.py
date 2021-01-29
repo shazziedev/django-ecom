@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse, Http404,HttpResponseRedirect
-
+from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView , DetailView ,View
 from django.views.generic.edit import CreateView, DeleteView, UpdateView 
@@ -15,17 +15,14 @@ from .forms import *
 class productList(ListView):
 	model = Product
 	paginate_by = 4
-
-	def get_context_data(self, *args, **kwargs):
-		Profile.objects.get_or_create(user=self.request.user)
-		is_favourite = False
-		pro = get_object_or_404(Product)
-		if pro.favourite.filter(id=self.request.user.user.id).exists():
-			is_favourite = True
+	
+	
+	def get_context_data(self,*args, **kwargs):
+		
 		context = super().get_context_data(**kwargs)
 		cat = Category.objects.all()
 		context['cat'] = cat
-		context['is_favourite'] = is_favourite
+		# context['is_favourite'] = is_favourite
 		return context
 
 class productDetails(DetailView):
@@ -33,9 +30,9 @@ class productDetails(DetailView):
 	template_name = 'products/products-detail.html' 
 	
 
-	def get( self, request, *args, **kwargs ):
+	def get( self, request,pk, *args, **kwargs ):
 		 is_favourite = False
-		 pro = get_object_or_404(Product)
+		 pro = get_object_or_404(Product,pk=pk)
 		 if pro.favourite.filter(id=request.user.user.id).exists():
 			 is_favourite = True
 		 try:

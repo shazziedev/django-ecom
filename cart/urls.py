@@ -11,5 +11,5 @@ urlpatterns = [
     
     path('', login_required(CartView.as_view()), name="cart-list"),
     path('<int:pk>/add-to-cart/', login_required(addToCartView.as_view()),name="cart-add"),
-
+    path('checkout/', login_required(CheckOutView.as_view()),name="checkout")
 ]

@@ -14,4 +14,6 @@ urlpatterns = [
     path('update/', login_required(UpdateView.as_view()), name="update"),
  	path('deactivate/', DeactivateView , name ='deactivate'),
     path('so-long/',DeleteAccView,name='delete'),
+    path('notification/',Notice,name='notice'),
+
 ]

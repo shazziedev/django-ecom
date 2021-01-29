@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title%}
+Notice
+{% endblock %}
+
+{% block body %}
+<div class="container ">
+	<div class="col-md-10 my-4 display-6 mx auto">
+		{% if user.user %}
+			Your account email is confirmed
+		{% else  %}
+			Please Confirm your email to complete registration.We have sent a confirmation link to your email. 
+		{% endif %}
+	</div>
+</div>
+{% endblock %}

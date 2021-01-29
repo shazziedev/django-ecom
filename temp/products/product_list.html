@@ -20,15 +20,16 @@
 	</style>
 	{% load ratings %}
 
- 	<div class="my-5 col-12">
+
+ 	<div class="my-5 col-10 mx-auto ">
  		<div class="display-6 float-left">Products</div>
 		{% if user.is_authenticated %}
  		<a class="btn btn-info rounded-pill float-right" href="{% url 'products:products-form' %}"><i class="fas fa-plus"></i> sell something</a>
  		{% endif %}
  	</div>
 
-	<div class="border-top">
 
+	<div class=" col-10 mx-auto py-4  border-top">
 		<div class="mx-3 my-2 p-0 d-flex ">
 			<div class=" py-0">
 			<nav aria-label="Page navigation example m-5">
@@ -80,7 +81,7 @@
 			    	<a id="a" class=" a" href="{{i.get_absolute_url}}">
 				    <div class="h3">{{i.name}}</div>
 				    {{i.ratings}}
-				    <p class="">{{i.info}}</p>
+				    <p class="">{{i.snippet}}</p>
 				    </a>
 				  	<p class="text-muted">posted: {{i.timestamp|date}}</p>
 			  	</div>	
@@ -90,15 +91,8 @@
 			  		<a href="{{i.add_to_cart}}" class="btn btn-outline-dark rounded-pills ">
 			  			<i class="fas fa-shopping-cart"></i> add to cart</a>
 			  		<p class="my-2">
-			  		<a href="{{i.get_absolute_url}}" class="btn btn-dark rounded-pills ">
-			  			See Details
-			  		</a>
-			  		{% if is_favourite %}
-						<a class="btn btn-danger my-2" href="{{i.hundle_wishlist}}"><i class="fas fa-bookmark"></i> Remove from Wishlist</a>
-					{% else %}
-						<a class="btn btn-warning my-2 " href="{{i.hundle_wishlist}}"><i class="far fa-bookmark"></i> Save to Wishlist</a>
-					{% endif %}
-			  		</p>
+			  		<a class="btn btn-info my-1" href="{{i.get_absolute_url}}">see more</a>
+					
 
 			  	</div>
 			  </div>

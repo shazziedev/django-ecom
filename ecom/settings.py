@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'star_ratings',     #For 5 start ratting
     'social_django',    #for social login
     'paypal.standard.ipn', #for_paypal
+
 ]   
 
 AUTHENTICATION_BACKENDS = {
@@ -62,7 +63,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #newly_added_for_social_logins
     'social_django.middleware.SocialAuthExceptionMiddleware',
-
+    
 ]
 
 ROOT_URLCONF = 'ecom.urls'
@@ -139,6 +140,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+#---------------------------------------------newlyadded------------------------------
+
 STATIC_ROOT = os.path.join(BASE_DIR, "assets")
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'temp/assets'),
@@ -153,10 +158,10 @@ LOGIN_REDIRECT_URL = '/'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = GKEY
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = GCS
 
-#---------------------------------------------newlyadded------------------------------
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+CRISPY_TEMPLATE_PACK = CRISPY_TEMPLATE_PACK
 
 STAR_RATINGS_ANONYMOUS = True
 REST_FRAMEWORK = {
@@ -171,6 +176,9 @@ REST_FRAMEWORK = {
 PAYPAL_RECEIVER_EMAIL = PAYPAL_RECEIVER_EMAIL
 PAYPAL_TEST = PAYPAL_TEST
 
+
+STRIPE_PUBLISHABLE_KEY = STRIPE_PUBLISHABLE_KEY
+STRIPES_SECRET_KEYS = STRIPES_SECRET_KEYS
 # if DEVELOPMENT_MODE is True:
 #     DATABASES = {
 #         "default": {

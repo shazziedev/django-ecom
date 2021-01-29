@@ -26,13 +26,15 @@ def payment_canceled():
 
 def payment_process(request):
     order_id = request.session.get('order_id')
-    order = get_object_or_404(Order,order_id=order_id)
+    order = get_object_or_404(Order,id=order_id)
     host = request.get_host()
-
+    print(order.orderitems.all())
+    bill = float(order.get_it())
+    print("bill %.2f" %bill)
 
     paypal_dict = {
         "business": settings.PAYPAL_RECEIVER_EMAIL,
-        "amount": "%.2f" % order.orderitems.get_cost().quantize(Decimal('0.1')) ,
+        "amount": "%.2f" % bill ,
         "item_name": f'order {order.id}',
         "invoice":str(order.id),
         'currency_code': 'USD',

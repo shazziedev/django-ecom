@@ -53,7 +53,7 @@
 		   <li class="list-unstyled text-capitalize mt-4">total cost: <kbd>${{total}}</kbd></li>
 		   <li class="list-unstyled text-capitalize my-2">
 		   		{% if user.is_authenticated %}
-		   		<a href="{% url 'payment:process'  %}" class="text-capitalize btn btn-info rounded-pill {% if object_list %} {% else %}disabled {% endif %}"><i class="fas fa-shopping-bag"></i> Buy</a>
+		   		<a href="{% url 'cart:checkout'  %}" class="text-capitalize btn btn-info rounded-pill {% if object_list %} {% else %}disabled {% endif %}"><i class="fas fa-shopping-bag"></i> Buy</a>
 		   		{% endif %}
 		   </li>
 		</div>

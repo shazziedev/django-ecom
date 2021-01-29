@@ -30,11 +30,15 @@ class Product(models.Model):
 	favourite 		= models.ManyToManyField(Profile, related_name='favourite', blank=True,default=None)
 	author			= models.ForeignKey(Profile,on_delete=models.CASCADE,related_name="author",default=None)
 	category 		= models.ForeignKey(Category,on_delete=models.CASCADE,related_name="category",default=None)
+	stock			= models.IntegerField(default=1)
 	slug			= models.SlugField(default=None)
 
 	class Meta:
 		ordering = ['-timestamp']
 
+
+	def snippet(self):
+		return self.info[:290] + '...'
 
 	def current_price(self):
 		if self.price == 0 and self.discount == 0:

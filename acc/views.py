@@ -109,7 +109,8 @@ class SignUpView(View):
             })
             user.email_user(subject, message)
 
-            messages.success(request, ('Please Confirm your email to complete registration.We have sent a confirmation link to your email. '))
+            messages.success(request, (''))
+            messages.warning(request, ('The confirmation link was invalid, possibly because it has already been used.'))
 
             return redirect('login')
 
@@ -154,6 +155,7 @@ def DeleteAccView(request):
 
 
 
-
+def Notice(request):
+    return render(request, 'acc/notice.html')
     
 
